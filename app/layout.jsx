@@ -1,11 +1,11 @@
-import { Inter,Poppins,Montserrat,Open_Sans,Nunito} from 'next/font/google';
+import { Inter} from 'next/font/google';
 import './globals.css';
 
 import ModalProvider from '@/providers/modal-provider';
 import AuthProvider from '@/providers/session-provider';
 import ToastProvider from '@/providers/toast-provider';
 
-const inter = Nunito({subsets: ['latin']});
+const inter = Inter({subsets: ['latin']});
 
    //
 export const metadata = {

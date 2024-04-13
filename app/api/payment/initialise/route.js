@@ -15,14 +15,21 @@ export const POST=async(req)=>{
 
         const transaction = await paystack.transaction.initialize({
             email: body.email,
-            amount: 450000,
+            amount: 350000,
             plan:planCode,
             channels:["card"],
-            callback_url:"http://localhost:3000/dashboard",
+            callback_url:"https://frontendcoach-j9es.vercel.app/dashboard",
             metadata:{
                 userId:currrentUser.id,
+            },
+           
+        },
+        {
+            headers:{
+                Authorization: process.env.PAYSTACK_SECRET
             }
-        });
+        }
+        );
 
         if(!transaction) return new NextResponse("failed to contact paystack");
 
