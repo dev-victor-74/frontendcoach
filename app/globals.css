@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import '~monaco-editor/min/vs/editor/editor.main.css';
+
+html,body :root{
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  /* background-color: #010118; */
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#upgrade{
+  background: linear-gradient(to right, #02023f, rgb(104, 6, 63));
+  /* border-radius: 5px;
+  padding: 8px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 94%;
+  color: rgb(243, 242, 242);
+  font-size: 12px; */
+  animation: animate 4s linear infinite;
+}
+#upgrade2{
+  background: linear-gradient(to right, #040492, rgb(138, 3, 82));
+  /* animation: animate 4s linear infinite; */
+}
+
+#lay{
+  background-color:#020208;
+background-image:
+radial-gradient(at 40% 20%, #040414 0px, transparent 50%),
+radial-gradient(at 76% 6%, rgb(9, 18, 88) 0px, transparent 50%);
+}
+
+#lay1{
+  background-color:#020208;
+background-image:
+radial-gradient(at 40% 20%, #040414 0px, transparent 50%),
+/* radial-gradient(at 76% 6%, rgb(9, 18, 88) 0px, transparent 50%), */
+radial-gradient(at 50% 55%, rgb(5, 3, 104) 0px, transparent 50%);
+}
+
+#modal{
+  backdrop-filter: blur(8px);
+  z-index: 999;
+}
+
+#blurbg{
+  background: url("/bathTowels.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 8px; 
+}
+
+::-webkit-scrollbar-track {
+  background: #f5f3f3; 
+}
+
+::-webkit-scrollbar-thumb {
+  background: #200957; 
+  border-radius: 2px; 
+}
+
+
+.split {
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - 35px);
+}
+
+.gutter {
+  background-color: #010216f5;
+  background-repeat: no-repeat;
+  background-position: 50%;
+}
+
+.gutter.gutter-horizontal {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
+  cursor: e-resize;
+}
+
+.gutter.gutter-vertical {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFAQMAAABo7865AAAABlBMVEVHcEzMzMzyAv2sAAAAAXRSTlMAQObYZgAAABBJREFUeF5jOAMEEAIEEFwAn3kMwcB6I2AAAAAASUVORK5CYII=');
+  cursor: s-resize;
+}
+
+
+@keyframes animate {
+   100%{
+    filter: hue-rotate(360deg);
+   }
+}
