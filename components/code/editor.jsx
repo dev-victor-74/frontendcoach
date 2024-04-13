@@ -18,18 +18,17 @@ const EditorPanel = ({lang, val, onChange}) => {
     <div className='w-full h-full'>
       <Editor
         className='bg-[#010216f5] h-full'
-        theme={settings?.theme}
+        theme="vs-dark"
         language={lang}
         value={val}
         onChange={onChange}
         options={{
           minimap:{
-            enabled: settings?.minimap},
-         wordWrap: settings?.wordWrap,
-         fontSize: settings?.fontSize,
-         fontFamily:settings?.fontFamily,
-         autoIndent:settings?.autoIndent,
-         formatOnPaste:settings?.format
+            enabled: true},
+         wordWrap: true,
+         fontSize: "14px",
+         fontFamily:"fira code"
+        
         }}
       />
     </div>
