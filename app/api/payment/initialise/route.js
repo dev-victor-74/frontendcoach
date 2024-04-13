@@ -26,7 +26,7 @@ export const POST=async(req)=>{
         },
         {
             headers:{
-                Authorization: process.env.PAYSTACK_SECRET
+                Authorization: `Bearer ${process.env.PAYSTACK_SECRET}`
             }
         }
         );
