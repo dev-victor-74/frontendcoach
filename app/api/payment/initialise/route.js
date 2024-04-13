@@ -12,6 +12,8 @@ export const POST=async(req)=>{
         if(!currrentUser){
             return new NextResponse("unauthenticated",{status:401});
         }
+        console.log(req.headers.authorization)
+
 
         const transaction = await paystack.transaction.initialize({
             email: body.email,
@@ -26,7 +28,7 @@ export const POST=async(req)=>{
         },
         {
             headers:{
-                Authorization:req.headers.authorization
+                Authorization:"Bearer sk_test_7eed1917a46eaadacdcf8eafc685b55a4acef42f"
             }
         }
         );

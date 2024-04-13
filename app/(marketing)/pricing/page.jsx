@@ -13,12 +13,8 @@ const PricingPage = () => {
  
   const onClick=async()=>{
     try {
-      const transaction = await axios.post("/api/payment/initialise",{email},
-       {
-        headers:{
-          Authorization: 'Bearer sk_test_7eed1917a46eaadacdcf8eafc685b55a4acef42f'
-        }
-       }
+      const transaction = await axios.post("/api/payment/initialise",{email}
+      
        );
        console.log(transaction)
 
