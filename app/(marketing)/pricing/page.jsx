@@ -14,7 +14,10 @@ const PricingPage = () => {
   const onClick=async()=>{
     try {
       const transaction = await axios.post("/api/payment/initialise",{email});
-      window.location.href = transaction?.data?.data?.authorization_url
+      if(transaction?.data?.data?.authorization_url){
+
+        window.location.href = transaction?.data?.data?.authorization_url
+      }
     } catch (error) {
       toast.error("couldn't process request, check your internet connection and try again")
     }
