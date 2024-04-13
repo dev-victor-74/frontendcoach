@@ -68,7 +68,7 @@ const SettingsForm = ({currentUser}) => {
           setTwitter(currentUser?.profile?.twitterLink)
           setLinkedin(currentUser?.profile?.LinkedinLink)
      }
-   },[])
+   },[currentUser])
 
    useEffect(()=>{
      setisMounted(true)

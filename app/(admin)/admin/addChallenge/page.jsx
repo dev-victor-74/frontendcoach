@@ -10,7 +10,7 @@ const AddChallengePage = () => {
 
   useEffect(()=>{
     setMounted(true);
-  })
+  },[])
 
   if(!mounted){
     return <Loading/>

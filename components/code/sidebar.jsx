@@ -3,22 +3,22 @@
 import Link from 'next/link';
 
 import SideBarLinks from './sidebar-links';
-import UseProfile from './use-profile';
 import { useSidebarStore } from '@/lib/sidebar-store';
 
-import { MdPhoto, MdSettings, MdDashboard } from 'react-icons/md';
+import { MdPhoto, MdDashboard } from 'react-icons/md';
 import { RiToolsLine } from "react-icons/ri";
 import useModalStore from '@/lib/modal-store';
 import { IoColorFill } from 'react-icons/io5';
-import { PiLinkSimple } from "react-icons/pi";
 import { useEffect, useState } from 'react';
 
 
-const CodeSidebar = ({user}) => {
+
+const CodeSidebar = () => {
     
     const[isMounted, setisMounted] = useState(false);
     const{onOpen} = useModalStore();
     const{isOpen} = useSidebarStore();
+
 
     useEffect(()=>{
       setisMounted(true);
@@ -62,7 +62,7 @@ const CodeSidebar = ({user}) => {
             </div>
         </div>
         <div className="flex flex-col items-center gap-3">
-            <UseProfile user = {user}/>
+            {/* <UseProfile user = {data?.data}/> */}
             {/* <div 
                onClick={()=>onOpen("editor-settings")}
                className="w-8 h-8 bg-[#16161f] relative

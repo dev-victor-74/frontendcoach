@@ -11,7 +11,7 @@ const UserListPage =async () => {
           <div className="w-full mt-6 flex flex-col gap-6">
             {
               users?.map(user=>(
-                <UserList user = {user}/>
+                <UserList user = {user} key={user?.id}/>
               ))
             }
           </div>

@@ -27,7 +27,7 @@ const UserLinks = ({profile, currentUser}) => {
          setMounted(true);
          const url = `${window?.location?.origin}/portfolio/${currentUser?.id}`
          setlink(url);
-     },[]);
+     },[currentUser?.id]);
 
      if(!mounted){
         return null;

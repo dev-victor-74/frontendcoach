@@ -26,10 +26,10 @@ const SuccessStories = () => {
               <h1 className="text-xl font-bold md:text-4xl text-zinc-200">Success Story of <strong className="text-purple-800">tamara</strong></h1>
               <div className="w-full h-full flex flex-col gap-2">
                  <p className="text-[16px] font-normal text-zinc-300 text-center">
-                     FrontendCoach has truly been a catalyst for my growth as a frontend developer, and I'm thrilled to share my success story of how this platform has made a profound impact on my journey.
+                     FrontendCoach has truly been a catalyst for my growth as a frontend developer, and I am thrilled to share my success story of how this platform has made a profound impact on my journey.
                  </p>
                  <p className="text-[16px] font-normal text-zinc-300 text-center">
-                     When I first stumbled upon FrontendCoach, I was a novice in the world of web development, eager to learn but unsure of where to begin. The platform's curated collection of frontend coding challenges immediately caught my eye, offering a structured and hands-on approach to mastering essential concepts. With each challenge I tackled, I felt my skills expanding, my confidence growing, and my passion for frontend development flourishing.
+                     When I first stumbled upon FrontendCoach, I was a novice in the world of web development, eager to learn but unsure of where to begin. The platforms curated collection of frontend coding challenges immediately caught my eye, offering a structured and hands-on approach to mastering essential concepts. With each challenge I tackled, I felt my skills expanding, my confidence growing, and my passion for frontend development flourishing.
                  </p>
               </div>
            </div>

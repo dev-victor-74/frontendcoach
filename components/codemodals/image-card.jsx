@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { MdCheck, MdCopyAll } from "react-icons/md";
