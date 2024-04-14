@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 const PortfolioPage = async ({params}) => {
  
     const portfolios = await getUserPortfolio(params?.userId);
-    const user = await getCurrentUserByid(portfolios[0]?.userId)
+    const user = await getCurrentUserByid(params?.userId)
     const currentUser = await getCurrentUser();
 
     if(!currentUser){
