@@ -1,6 +1,7 @@
 import { getCurrentUser } from "@/app/utils/actions/get-current-user";
 import { paystack } from "@/app/utils/paystack";
 import { NextResponse } from "next/server"
+import { headers } from "next/headers";
 
 
 export const POST=async(req)=>{
@@ -8,6 +9,9 @@ export const POST=async(req)=>{
         const currrentUser = await getCurrentUser();
         const body = await req.json();
         const planCode = process.env.PLAN_CODE
+        // const auth = headers().get("authorization")
+
+        //  console.log(auth)
 
         if(!currrentUser){
             return new NextResponse("unauthenticated",{status:401});
@@ -27,7 +31,7 @@ export const POST=async(req)=>{
         },
         {
             headers:{
-                Authorization:"Bearer sk_test_7eed1917a46eaadacdcf8eafc685b55a4acef42f"
+                Authorization:`Bearer ${process.env.PAYSTACK_SECRET}`
             }
         }
         );

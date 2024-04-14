@@ -1,5 +1,6 @@
 "use client"
 
+import { initializeTransaction } from "@/app/utils/payments/initialise"
 import axios from "axios"
 import { useSession } from "next-auth/react"
 import toast from "react-hot-toast"
@@ -7,14 +8,30 @@ import { BsFillLightningChargeFill } from "react-icons/bs"
 import { MdCheck } from "react-icons/md"
 
 const PricingPage = () => {
+
  const session = useSession()
 
  const email = session?.data?.user?.email
+
+//  const secret = process.env.NEXT_PUBLIC_PAYSTACK_SECRET
+
+
+ const pay= async()=>{
+   try {
+    const authorizationUrl = await initializeTransaction(350000, email,"PLN_wpjfbnz8o2wjnpc");
+    if (authorizationUrl) {
+      window.location.href = authorizationUrl;
+    }
+   } catch (error) {
+     console.log(error)
+   }
+ }
+
  
   const onClick=async()=>{
     try {
       const transaction = await axios.post("/api/payment/initialise",{email}
-      
+     
        );
        console.log(transaction)
 
