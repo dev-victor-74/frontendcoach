@@ -121,6 +121,10 @@ const {data} = useSWR(`/api/challenges/${params.challengeId}`, fetcher)
         sethtmlCode(challenge.html)
         setcssCode(challenge.css)
         setjsCode(challenge.js)
+       }else{
+        sethtmlCode(htmlCode);
+        setcssCode(cssCode);
+        sethtmlCode(htmlCode);
        }
      } catch (error) {
        

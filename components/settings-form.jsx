@@ -10,6 +10,7 @@ import Loading from './status/loading';
 import axios from 'axios';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
+import { MdArrowBack, MdDataSaverOff } from 'react-icons/md';
 
 
 const SettingsForm = ({currentUser}) => {
@@ -54,7 +55,7 @@ const SettingsForm = ({currentUser}) => {
           setLoading(false);
      }
    }
-  console.log(file)
+
    useEffect(()=>{
         file && handleFileUpload(file)
 
@@ -68,7 +69,11 @@ const SettingsForm = ({currentUser}) => {
           setTwitter(currentUser?.profile?.twitterLink)
           setLinkedin(currentUser?.profile?.LinkedinLink)
      }
-   },[currentUser])
+   },[currentUser]);
+
+   const handleRoute=()=>{
+     return router?.back()
+   }
 
    useEffect(()=>{
      setisMounted(true)
@@ -81,6 +86,7 @@ const SettingsForm = ({currentUser}) => {
   return (
 <section className='w-full h-full md:h-[80vh] flex bg-slate-100 rounded-sm px-2 py-2'>
     <div className='w-full h-full flex flex-col md:flex-row'>
+       <MdArrowBack color='black' size={20} className='absolute cursor-pointer' onClick={handleRoute}/>
         <div className="w-full flex flex-col items-center justify-center gap-3">
             <h1 className='text-xl font-bold'>Profile Information</h1>
             <div className="w-full mx-auto px-2 py-1 flex gap-8 ">
@@ -145,7 +151,12 @@ const SettingsForm = ({currentUser}) => {
              disabled={loading}
              onClick={onSubmit}
              className={clsx('bg-blue-600 px-2 rounded-md w-full md:w-[80%] py-[10px] hover:opacity-90 text-sm font-semibold text-zinc-200',loading && "opacity-[0.5] bg-blue-300")}
-            >Save</button>
+            >
+               {
+                    loading? <MdDataSaverOff color='silver' size={18} className='mx-auto animate-spin duration-500'/> :
+                    <span className='text-center'>Save</span>
+               }
+            </button>
         </div>
     </div>
     </section>

@@ -1,11 +1,18 @@
-import Footer from "@/components/footer";
 import Hero from "@/components/hero";
 import Faq from "@/components/home/faq";
 import Intro from "@/components/home/intro";
 import ProBenefit from "@/components/home/probenefit";
 import SuccessStories from "@/components/home/success-stories";
+import { getCurrentUser } from "../utils/actions/get-current-user";
+import { redirect } from "next/navigation";
 
-const HomePage = () => {
+const HomePage = async() => {
+
+    const currentUser = await getCurrentUser();
+
+    if(currentUser){
+      // return redirect("/dashboard");
+    }
   return (
     <div className='h-full flex flex-col'>
        <div className="w-full h-[80vh] flex items-center justify-center" >

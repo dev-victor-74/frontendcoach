@@ -10,6 +10,9 @@ import { RiToolsLine } from "react-icons/ri";
 import useModalStore from '@/lib/modal-store';
 import { IoColorFill } from 'react-icons/io5';
 import { useEffect, useState } from 'react';
+import useSWR from 'swr';
+import axios from 'axios';
+import UseProfile from './use-profile';
 
 
 
@@ -18,6 +21,17 @@ const CodeSidebar = () => {
     const[isMounted, setisMounted] = useState(false);
     const{onOpen} = useModalStore();
     const{isOpen} = useSidebarStore();
+
+   const fetcher=async(url)=>{
+      try {
+        const res = await axios.get(url)
+        return res;
+      } catch (error) {
+        
+      }
+   }
+    const{data} = useSWR("/api/users/get",fetcher)
+    console.log(data)
 
 
     useEffect(()=>{
@@ -62,7 +76,7 @@ const CodeSidebar = () => {
             </div>
         </div>
         <div className="flex flex-col items-center gap-3">
-            {/* <UseProfile user = {data?.data}/> */}
+            <UseProfile user = {data?.data}/>
             {/* <div 
                onClick={()=>onOpen("editor-settings")}
                className="w-8 h-8 bg-[#16161f] relative

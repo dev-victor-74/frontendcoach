@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import UserAvatar from './user-avatar';
 import { usePathname } from 'next/navigation';
 import { format } from 'date-fns';
@@ -51,6 +51,10 @@ const mobileLinks=[
     label:"Get Pro",
     path:"/pricing"
   },
+  {
+    label:"Sign in",
+    path:"/auth/sign-in"
+  },
  
 ]
 
@@ -86,7 +90,7 @@ const HomeNavbar = ({currentUser}) => {
             links.map(link=>(
               <Link key={link.id}
                   href={link.href} 
-                  className='text-white font-normal text-sm'>
+                  className={clsx('text-white font-normal text-sm hover:bg-blue-800 px-[6px] py-[2px] rounded-full',pathname === link.href && "bg-blue-800")}>
                  {link.label}
               </Link>
             ))
@@ -158,7 +162,11 @@ const HomeNavbar = ({currentUser}) => {
                      </div>
                   ))
                   }
-                  <button className="w-full ring-1 ring-blue-950 text-xs font-semibold py-3 px-2 rounded-full">Logout</button>
+                  <button
+                  onClick={()=>signOut()}
+                  className="w-full ring-1 ring-blue-950 text-xs font-semibold py-3 px-2 rounded-full">
+                    Logout
+                  </button>
              </div>
 
            </div>

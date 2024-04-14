@@ -12,7 +12,6 @@ export const POST=async(req)=>{
         if(!currrentUser){
             return new NextResponse("unauthenticated",{status:401});
         }
-        console.log(req.headers.authorization)
 
 
         const transaction = await paystack.transaction.initialize({
