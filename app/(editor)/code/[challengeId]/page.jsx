@@ -150,9 +150,9 @@ const {data} = useSWR(`/api/challenges/${params.challengeId}`, fetcher)
   
   useEffect(()=>{
     setisMounted(true);
-    prepareChallenge();
+    // prepareChallenge();
 
-    return ()=>prepareChallenge();
+    // return ()=>prepareChallenge();
   },[])
 
   if(!isMounted){
