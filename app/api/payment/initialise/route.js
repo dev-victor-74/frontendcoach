@@ -18,27 +18,42 @@ export const POST=async(req)=>{
         }
 
 
-        const transaction = await paystack.transaction.initialize({
-            email: body.email,
-            amount: 350000,
-            plan:planCode,
-            channels:["card"],
-            callback_url:"https://frontendcoach-j9es.vercel.app/dashboard",
-            metadata:{
-                userId:currrentUser.id,
+        const response = await fetch('https://api.paystack.co/transaction/initialize', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${process.env.PAYSTACK_SECRET}` // Pass authorization token from request
             },
+            body: JSON.stringify({
+              email:body.email,
+              amount:350000,
+              channels:["card"],
+              plan: planCode, // Replace with the ID of your subscription plan
+            }),
+          });
+          const data = await response.json();
+
+        // const transaction = await paystack.transaction.initialize({
+        //     email: body.email,
+        //     amount: 350000,
+        //     plan:planCode,
+        //     channels:["card"],
+        //     callback_url:"https://frontendcoach-j9es.vercel.app/dashboard",
+        //     metadata:{
+        //         userId:currrentUser.id,
+        //     },
            
-        },
-        {
-            headers:{
-                Authorization:`Bearer ${process.env.PAYSTACK_SECRET}`
-            }
-        }
-        );
+        // },
+        // {
+        //     headers:{
+        //         Authorization:`Bearer ${process.env.PAYSTACK_SECRET}`
+        //     }
+        // }
+        // );
 
-        if(!transaction) return new NextResponse("failed to contact paystack");
+        // if(!transaction) return new NextResponse("failed to contact paystack");
 
-        return NextResponse.json(transaction);
+        return NextResponse.json(data);
         
     } catch (error) {
         console.log(error)
