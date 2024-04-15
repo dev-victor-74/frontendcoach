@@ -9,9 +9,9 @@ export const POST=async(req)=>{
         const currrentUser = await getCurrentUser();
         const body = await req.json();
         const planCode = process.env.PLAN_CODE
-        // const auth = headers().get("authorization")
+        const auth = headers().get("authorization")
 
-        //  console.log(auth)
+         console.log(auth)
 
         if(!currrentUser){
             return new NextResponse("unauthenticated",{status:401});
@@ -22,7 +22,7 @@ export const POST=async(req)=>{
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              Authorization: `Bearer ${process.env.PAYSTACK_SECRET}` // Pass authorization token from request
+              Authorization: auth
             },
             body: JSON.stringify({
               email:body.email,
