@@ -15,7 +15,8 @@ export const getCurrentUser = async()=>{
         },
         include:{
           profile: true,
-          Userapilimit:true
+          Userapilimit:true,
+          credential:true
         },
     });
 

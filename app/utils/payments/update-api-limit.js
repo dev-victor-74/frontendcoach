@@ -19,12 +19,16 @@ export const updatePro=async(email,planType,custCode,subCode)=>{
             data:{
                 plan: planType,
                 count: apilimit.count + 40,
-                customerId: custCode,
-                subscriptionId:subCode
-
             }
          }
         )
+        await prismaDb.SubscriptionCredentials.create({
+            data:{
+               customerEmail:email,
+               customerId: custCode,
+               subscriptionId:subCode 
+            }
+        })
     } catch (error) {
         
     }
