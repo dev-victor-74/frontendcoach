@@ -1,5 +1,5 @@
 import { removePro } from "@/app/utils/payments/remove-pro";
-import { updatePro } from "@/app/utils/payments/update-api-limit";
+import { onChargeSuccessPro, updatePro } from "@/app/utils/payments/update-api-limit";
 import crypto from "crypto-js"
 import {headers} from "next/headers"
 import { NextResponse } from "next/server";
@@ -26,17 +26,17 @@ export const POST=async(req)=>{
       const event = body.event
 
       if(event === "subscription.create"){
-         await updatePro(body.data.customer.email,"Pro")
+         await updatePro(body?.data?.customer.email,"Pro",body?.data?.customer.customer_code,body?.data.subscription_code)
         }
         if(event === "charge.success"){
 
-          await updatePro(body.data.customer.email,"Pro")
+          await onChargeSuccessPro(body?.data?.customer.email,"Pro")
         }
         if(event === "subscription.disable"){
-          await removePro(body.data.customer.email, "Free")
+          await removePro(body?.data?.customer.email, "Free")
         }
         if(event === "invoice.payment_failed"){
-          await removePro(body.data.customer.email,"Free")
+          await removePro(body?.data?.customer.email,"Free")
         }
 
       return NextResponse.json(null,{status:200});

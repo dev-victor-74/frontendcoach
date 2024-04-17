@@ -171,6 +171,8 @@ model Userapilimit{
   count         Int?
   user          User @relation(fields: [userId], references: [id],onDelete: Cascade)
   plan          UserPlan   @default(Free)
+  subscriptionId  String?
+  customerId      String?
   
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt

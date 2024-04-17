@@ -15,18 +15,6 @@ const PricingPage = () => {
 
 //  const secret = process.env.NEXT_PUBLIC_PAYSTACK_SECRET
 
-
- const pay= async()=>{
-   try {
-    const authorizationUrl = await initializeTransaction(350000, email,"PLN_wpjfbnz8o2wjnpc");
-    if (authorizationUrl) {
-      window.location.href = authorizationUrl;
-    }
-   } catch (error) {
-     console.log(error)
-   }
- }
-
  
   const onClick=async()=>{
     try {

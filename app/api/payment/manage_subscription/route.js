@@ -8,29 +8,22 @@ export const POST=async(req)=>{
     try {
         const currrentUser = await getCurrentUser();
         const body = await req.json();
-        const planCode = process.env.PLAN_CODE
         const auth = headers().get("authorization")
 
-         console.log(auth)
+        //  if(!body.code) return new NextResponse("missing fields",{status:404});
 
         if(!currrentUser){
             return new NextResponse("unauthenticated",{status:401});
         }
 
 
-        const response = await fetch('https://api.paystack.co/transaction/initialize', {
-            method: 'POST',
+        const response = await fetch(`https://api.paystack.co/subscription/${body.code}/manage/link`, {
+            method: 'GET',
             headers: {
               'Content-Type': 'application/json',
               Authorization: auth
             },
-            body: JSON.stringify({
-              email:body.email,
-              amount:350000,
-              channels:["card"],
-              callback_url:"https://frontendcoach-j9es.vercel.app/dashboard",
-              plan: planCode,
-            }),
+           
           });
           const data = await response.json();
 

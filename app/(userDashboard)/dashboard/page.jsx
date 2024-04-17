@@ -22,7 +22,7 @@ const DashBoardpage = async() => {
 
 
   if(!currentUser){
-    return redirect("/")
+    // return redirect("/")
   }
 
 
