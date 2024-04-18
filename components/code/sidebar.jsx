@@ -31,7 +31,6 @@ const CodeSidebar = () => {
       }
    }
     const{data} = useSWR("/api/users/get",fetcher)
-    console.log(data)
 
 
     useEffect(()=>{

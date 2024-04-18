@@ -14,7 +14,7 @@ const UncompletedProjects =() => {
      const res = await axios.get(url);
      return res;
    } catch (error) {
-     console.log(error)
+    //  console.log(error)
    }
  }
 

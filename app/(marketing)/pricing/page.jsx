@@ -1,32 +1,56 @@
 "use client"
 
-import { initializeTransaction } from "@/app/utils/payments/initialise"
 import axios from "axios"
 import { useSession } from "next-auth/react"
+import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
 import { BsFillLightningChargeFill } from "react-icons/bs"
-import { MdCheck } from "react-icons/md"
+import { MdCheck, MdDataSaverOff } from "react-icons/md"
 
 const PricingPage = () => {
 
- const session = useSession()
+ const session = useSession();
+ const [loading, setLoading] = useState(false);
 
  const email = session?.data?.user?.email
 
-//  const secret = process.env.NEXT_PUBLIC_PAYSTACK_SECRET
+ const secret = process.env.NEXT_PUBLIC_PAYSTACK_SECRET
+
+
+const handleCheckSubscription = async () => {
+  try {
+    const response = await fetch(`https://api.paystack.co/subscription?email=${email}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${secret}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    const data = await response.json();
+    return data;
+
+  } catch (error) {
+    // console.error(error);
+  }
+};
 
  
   const onClick=async()=>{
+     setLoading(true);
     try {
-      const transaction = await axios.post("/api/payment/initialise",{email},
+      const data = await handleCheckSubscription();
+      if(data?.data[0]?.subscription_code){
+         return toast.error("You have already subscribed to this plan");
+      }
+
+       const transaction = await axios.post("/api/payment/initialise",{email},
        {
         headers:{
-          Authorization: `Bearer sk_test_7eed1917a46eaadacdcf8eafc685b55a4acef42f`
+          Authorization: `Bearer ${secret}`
         }
        }
      
        );
-       console.log(transaction)
 
       if(transaction?.data?.data?.authorization_url){
 
@@ -34,6 +58,8 @@ const PricingPage = () => {
       }
     } catch (error) {
       toast.error("couldn't process request, check your internet connection and try again")
+    }finally{
+      setLoading(false);
     }
   }
 
@@ -64,9 +90,14 @@ const PricingPage = () => {
                    <MdCheck color="lime" size={18}/>
                     <span className="text-zinc-200 text-sm font-semibold">Access to all the code tools</span>
                 </div>
-                <button onClick={onClick} className="w-[90%] text-zinc-200 px-2 py-2 mx-auto rounded-full mt-5 flex items-center justify-center gap-4" id="upgrade2">
-                <BsFillLightningChargeFill color="lime" size={16}/>
-                  <span className="font-semibold text-sm">upgrade Now</span> 
+                <button disabled={loading} onClick={onClick} className="w-[90%] text-zinc-200 px-2 py-2 mx-auto rounded-full mt-5 flex items-center justify-center gap-4" id="upgrade2">
+                {loading ?
+                   <MdDataSaverOff size={18} color="silver" className="animate-spin"/>
+                   :
+                  <>
+                    <BsFillLightningChargeFill color="lime" size={16}/>
+                    <span className="font-semibold text-sm">upgrade Now</span>
+                  </> }
                 </button>
           </div>
           </div>

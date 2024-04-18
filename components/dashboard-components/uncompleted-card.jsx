@@ -8,7 +8,7 @@ const UncompletedCard = ({d}) => {
 
  const[isMounted, setisMounted] = useState(false);
 
- const href = `/code/${d?.challengeId}`
+ const href = `/code/${d?.challengeId}?saved=${d?.id}`
 
  useEffect(()=>{
     setisMounted(true);

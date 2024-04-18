@@ -11,12 +11,10 @@ export const POST=async(req)=>{
         const planCode = process.env.PLAN_CODE
         const auth = headers().get("authorization")
 
-         console.log(auth)
 
         if(!currrentUser){
             return new NextResponse("unauthenticated",{status:401});
         }
-
 
         const response = await fetch('https://api.paystack.co/transaction/initialize', {
             method: 'POST',

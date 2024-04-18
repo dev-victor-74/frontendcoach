@@ -7,7 +7,7 @@ import CodeNavbar from "@/components/code/code-navbar";
 import Loading from "@/components/status/loading";
 import { useEditorState } from "@/lib/sidebar-store";
 import axios from "axios";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useSWR from "swr";
@@ -19,7 +19,11 @@ const Codepage = ({params}) => {
   const[isExisting, setisExisting] = useState(false);
   const[subloading, setsubLoading] = useState(false);
   const[sabloading, setsabLoading] = useState(false);
-  const[cData, setcData] = useState(null)
+  const[cData, setcData] = useState(null);
+
+  const searchParams = useSearchParams();
+ 
+  const search = searchParams.get('saved');
 
   const{isOne, isTwo, isThree} = useEditorState();
   const router = useRouter();
@@ -147,12 +151,19 @@ const {data} = useSWR(`/api/challenges/${params.challengeId}`, fetcher)
     }
 
   }
+
+  const prepC=async()=>{
+    try {
+      await prepareChallenge()
+    } catch (error) {
+      
+    }
+  }
   
   useEffect(()=>{
     setisMounted(true);
-    // prepareChallenge();
-
-    // return ()=>prepareChallenge();
+      search?.length && prepC()
+    return ()=>prepC();
   },[])
 
   if(!isMounted){
