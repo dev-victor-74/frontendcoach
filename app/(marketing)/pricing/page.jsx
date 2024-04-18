@@ -22,7 +22,7 @@ const handleCheckSubscription = async () => {
     const response = await fetch(`https://api.paystack.co/subscription?email=${email}`, {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${secret}`,
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_PAYSTACK_SECRET}`,
         'Content-Type': 'application/json',
       },
     });
@@ -46,7 +46,7 @@ const handleCheckSubscription = async () => {
        const transaction = await axios.post("/api/payment/initialise",{email},
        {
         headers:{
-          Authorization: `Bearer ${secret}`
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_PAYSTACK_SECRET}`
         }
        }
      

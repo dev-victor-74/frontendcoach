@@ -19,7 +19,6 @@ const ProBox = ({credit}) => {
     const pathName  = usePathname();
     const session = useSession()
     const email = session?.data?.user?.email
-    const secret = process.env.NEXT_PUBLIC_PAYSTACK_SECRET
 
     const nextPaymentDate = date ? format(new Date(date && date),"PP") : null
 
@@ -28,7 +27,7 @@ const ProBox = ({credit}) => {
       const response = await fetch(`https://api.paystack.co/subscription/${code}/manage/link`, {
             method: 'GET',
             headers: {
-              Authorization: `Bearer ${secret}`,
+              Authorization: `Bearer ${process.env.NEXT_PUBLIC_PAYSTACK_SECRET}`,
               'Content-Type': 'application/json'
             },
            
@@ -46,7 +45,7 @@ const ProBox = ({credit}) => {
         const response = await fetch(`https://api.paystack.co/subscription?email=${email}`, {
           method: 'GET',
           headers: {
-            Authorization: `Bearer ${secret}`,
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_PAYSTACK_SECRET}`,
             'Content-Type': 'application/json',
           },
         });
@@ -65,7 +64,7 @@ const ProBox = ({credit}) => {
         const response = await fetch(`https://api.paystack.co/subscription?email=${email}`, {
           method: 'GET',
           headers: {
-            Authorization: `Bearer ${secret}`,
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_PAYSTACK_SECRET}`,
             'Content-Type': 'application/json',
           },
         });
