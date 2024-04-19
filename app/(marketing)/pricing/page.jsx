@@ -14,11 +14,12 @@ const PricingPage = () => {
 
  const email = session?.data?.user?.email
 
- const secret = process.env.NEXT_PUBLIC_PAYSTACK_SECRET
-
 
 const handleCheckSubscription = async () => {
   try {
+
+
+
     const response = await fetch(`https://api.paystack.co/subscription?email=${email}`, {
       method: 'GET',
       headers: {
@@ -34,21 +35,26 @@ const handleCheckSubscription = async () => {
   }
 };
 
+// console.log(process.env.NEXT_PUBLIC_PAYSTACK_SECRET)
  
   const onClick=async()=>{
      setLoading(true);
     try {
-      const data = await handleCheckSubscription();
-      if(data?.data[0]?.subscription_code){
-         return toast.error("You have already subscribed to this plan");
-      }
+
+
+      // const res = await axios.post("/api/payment")
+
+      // const data = await handleCheckSubscription();
+      // if(data?.data[0]?.subscription_code){
+      //    return toast.error("You have already subscribed to this plan");
+      // }
 
        const transaction = await axios.post("/api/payment/initialise",{email},
-       {
-        headers:{
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_PAYSTACK_SECRET}`
-        }
-       }
+      //  {
+      //   // headers:{
+      //   //   Authorization: `Bearer ${process.env.NEXT_PUBLIC_PAYSTACK_SECRET}`
+      //   // }
+      //  }
      
        );
 
@@ -57,7 +63,11 @@ const handleCheckSubscription = async () => {
         window.location.href = transaction?.data?.data?.authorization_url
       }
     } catch (error) {
-      toast.error("couldn't process request, check your internet connection and try again")
+      console.log(error?.response?.status)
+      if(error?.response?.status === 403){
+         return toast.error("You have already subscribed to this plan");
+      }
+      return toast.error("couldn't process request, check your internet connection and try again")
     }finally{
       setLoading(false);
     }
