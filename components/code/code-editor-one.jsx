@@ -40,7 +40,7 @@ const CodeEditorOne = ({htmlCode,jsCode,
   const handleOutput =()=>{
     setTimeout(()=>{
      setOutputCode(codeOutput)
-    },500)
+    },1000)
   }
     useEffect(()=>{
       handleOutput();

@@ -30,24 +30,81 @@ const Codepage = ({params}) => {
 
   const [htmlCode, sethtmlCode] =
    useState(`<html>
-      <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
-    <!-- Remove the line below if you don't want to use TailwindCSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-      </head>
+        <!-- Remove the line below if you don't want to use TailwindCSS -->
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
       <body>
   <!-- Your code goes here -->
-      </body>
+  <!-- Edit the code below to get started -->
+    
+        <div class="relative flex min-h-screen flex-col justify-center overflow-hidden bg-[#090727] py-6 sm:py-12">
+        <img src="/img/beams.jpg" alt="" class="absolute top-1/2 left-1/2 max-w-none -translate-x-1/2 -translate-y-1/2" width="1308" />
+        <div class="absolute inset-0 bg-[url(/img/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
+        <div class="relative bg-slate-200 px-6 ring-4 ring-blue-900 pt-10 pb-8 shadow-xl sm:mx-auto sm:max-w-lg sm:rounded-md sm:px-10">
+          <div class="mx-auto max-w-md">
+          <div className="flex flex-col">
+          <div class="w-8 h-8 rounded-full mx-auto animate-bounce ring-8 ring-purple-800 bg-blue-800"></div>
+          <h2 class="text-xl text-zinc-800 font-extrabold text-center mt-4">Welcome</h2>
+        </div>
+            <div class="divide-y divide-gray-300/50">
+              <div class="space-y-6 py-8 text-base leading-7 text-zinc-800">
+                <p class="text-xl font-semibold">Start by editing the code inside the body tag </p>
+                <ul class="space-y-4">
+                  <li class="flex items-center">
+                    <svg class="h-6 w-6 flex-none fill-sky-100 stroke-blue-800 stroke-2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="11" />
+                      <path d="m8 13 2.165 2.165a1 1 0 0 0 1.521-.126L16 9" fill="none" />
+                    </svg>
+                    <p class="ml-4 text-sm font-semibold text-zinc-900">
+                      You are to build out this challenge and get it to look  as close as possible to the challenge file.
+                    </p>
+                  </li>
+                  <li class="flex items-center">
+                    <svg class="h-6 w-6 flex-none fill-sky-100 stroke-blue-800 stroke-2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="11" />
+                      <path d="m8 13 2.165 2.165a1 1 0 0 0 1.521-.126L16 9" fill="none" />
+                    </svg>
+                    <p class="ml-4 text-sm font-semibold text-zinc-900">
+                      Your should have a clean and intuitive user interface.
+                    </p>
+                  </li>
+                  <li class="flex items-center">
+                    <svg class="h-6 w-6 flex-none fill-sky-100 stroke-blue-800 stroke-2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="11" />
+                      <path d="m8 13 2.165 2.165a1 1 0 0 0 1.521-.126L16 9" fill="none" />
+                    </svg>
+                    <p class="ml-4 text-sm font-semibold text-zinc-900">Add animations to your project to show all hover states</p>
+                  </li>
+                </ul>
+                <p class="text-blue-900 text-xs font-medium">This demo uses tailwind css, if you don't want to use it you can remove the script from the head section of the html tab</p>
+              </div>
+              <div class="pt-8 text-base font-semibold leading-7">
+                <p class="text-zinc-900">Want to learn more about Tailwind?</p>
+                <p>
+                  <a href="https://tailwindcss.com/docs" class="text-blue-800 hover:text-blue-900">Read the docs &rarr;</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </body>
 </html>
   `)
+  //"Inter Tight", sans-serif;
   const [cssCode, setcssCode] = useState(`
     body{
       margin:0;
       padding:0;
       height:100%;
-      font-family:"Inter", sans-serif; 
+      font-family:"Inter Tight", sans-serif; 
     }
   `)
   const [jsCode, setjsCode] = useState("")

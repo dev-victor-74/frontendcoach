@@ -2,7 +2,7 @@
 
 import axios from "axios"
 import { useSession } from "next-auth/react"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import toast from "react-hot-toast"
 import { BsFillLightningChargeFill } from "react-icons/bs"
 import { MdCheck, MdDataSaverOff } from "react-icons/md"
@@ -15,47 +15,10 @@ const PricingPage = () => {
  const email = session?.data?.user?.email
 
 
-const handleCheckSubscription = async () => {
-  try {
-
-
-
-    const response = await fetch(`https://api.paystack.co/subscription?email=${email}`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_PAYSTACK_SECRET}`,
-        'Content-Type': 'application/json',
-      },
-    });
-    const data = await response.json();
-    return data;
-
-  } catch (error) {
-    // console.error(error);
-  }
-};
-
-// console.log(process.env.NEXT_PUBLIC_PAYSTACK_SECRET)
- 
   const onClick=async()=>{
      setLoading(true);
     try {
-
-
-      // const res = await axios.post("/api/payment")
-
-      // const data = await handleCheckSubscription();
-      // if(data?.data[0]?.subscription_code){
-      //    return toast.error("You have already subscribed to this plan");
-      // }
-
        const transaction = await axios.post("/api/payment/initialise",{email},
-      //  {
-      //   // headers:{
-      //   //   Authorization: `Bearer ${process.env.NEXT_PUBLIC_PAYSTACK_SECRET}`
-      //   // }
-      //  }
-     
        );
 
       if(transaction?.data?.data?.authorization_url){

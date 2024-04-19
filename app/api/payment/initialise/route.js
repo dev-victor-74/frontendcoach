@@ -1,7 +1,5 @@
 import { getCurrentUser } from "@/app/utils/actions/get-current-user";
-import { paystack } from "@/app/utils/paystack";
 import { NextResponse } from "next/server"
-import { headers } from "next/headers";
 
 
 export const POST=async(req)=>{
@@ -9,7 +7,6 @@ export const POST=async(req)=>{
         const currrentUser = await getCurrentUser();
         const body = await req.json();
         const planCode = process.env.PLAN_CODE
-        // const auth = headers().get("authorization")
 
 
         if(!currrentUser){
@@ -19,7 +16,7 @@ export const POST=async(req)=>{
        const res = await fetch(`https://api.paystack.co/subscription?email=${body.email}`, {
           method: 'GET',
           headers: {
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_PAYSTACK_SECRET}`,
+            Authorization: `Bearer ${process.env.PAYSTACK_SECRET}`,
             'Content-Type': 'application/json',
           },
         });
@@ -48,7 +45,6 @@ export const POST=async(req)=>{
         return NextResponse.json(data);
         
     } catch (error) {
-        console.log(error)
         return new NextResponse(JSON.stringify(error),{status:500})
     }
 }

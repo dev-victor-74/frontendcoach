@@ -47,9 +47,13 @@ const ChallengeCard = ({item,currentUser}) => {
   return (
     <div className='rounded-sm ring-[3px] shadow-lg bg-[#171444] hover:scale-[1.02] transition duration-500 ring-blue-950 pb-2 relative overflow-hidden'>
         {item?.challengeType === "Pro"? <div 
-           className="w-[25px] font-semibold text-xs text-zinc-200 rounded-full left-1 top-1 h-[25px] py-1 flex items-center justify-center absolute bg-blue-500" id='upgrade2'/> : 
+           className="w-[30px] font-semibold text-xs text-zinc-200 rounded-full left-1 top-1 h-[25px] py-1 flex items-center justify-center text-center absolute bg-blue-500" id='upgrade2'>
+             <span>Pro</span>
+           </div> : 
          <div 
-         className="w-[25px] font-semibold text-xs text-zinc-200 rounded-full left-1 top-1 h-[25px] py-1 flex items-center justify-center absolute bg-blue-500"/>
+         className="w-[33px] font-semibold text-xs text-zinc-200 rounded-full left-1 top-1 h-[25px] py-1 flex items-center justify-center absolute bg-blue-500">
+             <span>Free</span>
+         </div>
         }  
         <div onClick={()=>handleRouting(item?.challengeType)}
            className="w-full h-full flex items-center cursor-pointer justify-center absolute bg-white/5"

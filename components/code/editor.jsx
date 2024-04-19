@@ -26,8 +26,8 @@ const EditorPanel = ({lang, val, onChange}) => {
           minimap:{
             enabled: true},
          wordWrap: true,
-         fontSize: "14px",
-         fontFamily:"fira code"
+         fontSize: "13px",
+         fontFamily:"Fira code"
         
         }}
       />
