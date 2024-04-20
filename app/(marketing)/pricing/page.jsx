@@ -18,15 +18,15 @@ const PricingPage = () => {
   const onClick=async()=>{
      setLoading(true);
     try {
-       const transaction = await axios.post("/api/payment/initialise",{email},
+       const transaction = await axios.post("/api/payment/initialise"
        );
-
+     
       if(transaction?.data?.data?.authorization_url){
 
         window.location.href = transaction?.data?.data?.authorization_url
       }
     } catch (error) {
-      console.log(error?.response?.status)
+      console.log(error)
       if(error?.response?.status === 403){
          return toast.error("You have already subscribed to this plan");
       }

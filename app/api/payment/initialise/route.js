@@ -2,18 +2,18 @@ import { getCurrentUser } from "@/app/utils/actions/get-current-user";
 import { NextResponse } from "next/server"
 
 
+
 export const POST=async(req)=>{
+
     try {
         const currrentUser = await getCurrentUser();
-        const body = await req.json();
         const planCode = process.env.PLAN_CODE
 
 
         if(!currrentUser){
             return new NextResponse("unauthenticated",{status:401});
         }
-
-       const res = await fetch(`https://api.paystack.co/subscription?email=${body.email}`, {
+       const res = await fetch(`https://api.paystack.co/subscription?email=${currrentUser?.email}`, {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${process.env.PAYSTACK_SECRET}`,
@@ -33,7 +33,7 @@ export const POST=async(req)=>{
               Authorization: `Bearer ${process.env.PAYSTACK_SECRET}`
             },
             body: JSON.stringify({
-              email:body.email,
+              email:currrentUser?.email,
               amount:350000,
               channels:["card"],
               callback_url:"https://frontendcoach-j9es.vercel.app/dashboard",
