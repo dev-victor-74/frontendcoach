@@ -113,16 +113,16 @@ const SingleChallengeCard = ({data}) => {
 
                    <div className="w-full flex flex-col gap-2">
                       <p className='text-sm text-zinc-200 font-medium'>
-                      Start with this design and transform it into a functional project using HTML, CSS, and JavaScript.
+                      You are to build out this challenge and get it to look as close as possible to the challenge file.
                       </p>
                       <p className='text-sm text-zinc-200 font-medium'>
-                      If you want to go the extra mile, expand upon it, and integrate your unique touch by adding animations and interactivity.
+                      Your should have a clean and intuitive user interface.
                       </p>
                       <p className='text-sm text-zinc-200 font-medium'>
-                        Prioritize creativity over pixel-perfect accuracy and showcase your developer ingenuity.
+                       Add animations to your project to show all hover states.
                       </p>
                       <p className='text-sm text-zinc-200 font-medium'>
-                      The most creative projects will be showcased on our featured page and on top of your profile page.
+                      Prioritize creativity over pixel-perfect accuracy and showcase your developer ingenuity.
                       </p>
                    </div>
                    {(data?.solvers >= 3 ) && 

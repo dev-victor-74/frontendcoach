@@ -80,7 +80,9 @@ const ProBox = ({credit}) => {
     }
 
     useEffect(()=>{
-       email && getUserSub();
+       if(email){
+        getUserSub();
+       }
 
        return ()=> getUserSub();
     },[email])
@@ -106,11 +108,12 @@ const ProBox = ({credit}) => {
                        <p
                         className="text-md text-zinc-300 text-center md:text-start"
                        >You are currently on a <strong className="text-zinc-300 px-2 rounded-full py-[2px]" id="upgrade2">Pro</strong> plan </p>
+                        {date && 
                         <p
                         className="text-md text-zinc-300 text-center md:text-start"
                        >
                         Next payment date is {nextPaymentDate}                 
-                       </p>
+                       </p>}
                     </div>
                     </>
                    : (credit?.plan === "Free") ?

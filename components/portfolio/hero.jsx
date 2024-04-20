@@ -29,10 +29,10 @@ const Hero = ({user}) => {
               <div className="w-full flex items-center gap-2">
                   <h2 className='text-xl font-bold text-zinc-300'>Contact <strong className='text-purple-800'>me</strong> </h2>
                   <div className="flex items-center gap-2 ml-4">
-                     {user?.profile?.twitterLink && <Link href={"/"}>
+                     {user?.profile?.twitterLink && <Link href={user?.profile?.twitterLink}>
                         <FaSquareXTwitter size={22} color='silver'/>
                     </Link>}
-                    {user?.profile?.LinkedinLink && <Link href={"/"}>
+                    {user?.profile?.LinkedinLink && <Link href={user?.profile?.LinkedinLink}>
                         <FaLinkedin size={22} color='blue'/>
                     </Link>}
                   </div>

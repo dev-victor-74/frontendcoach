@@ -31,11 +31,11 @@ const getUserSub=async()=>{
   const onClick=async()=>{
      setLoading(true);
     try {
-      //  const sub_code = await getUserSub();
-      // if(sub_code){
-      //   return toast.error("You have already subscribed to this plan");
-      //   // 'https://api.paystack.co/transaction/initialize',
-      // }
+       const sub_code = await getUserSub();
+      if(sub_code){
+        return toast.error("You have already subscribed to this plan");
+        // 'https://api.paystack.co/transaction/initialize',
+      }
       const response = await fetch('api/payment/initialise', {
         method:"POST",
         headers: {
@@ -44,10 +44,6 @@ const getUserSub=async()=>{
        },
        body: JSON.stringify({
          email:email,
-        //  amount:350000,
-        //  channels:["card"],
-        //  callback_url:"https://frontendcoach-j9es.vercel.app/dashboard",
-        //  plan: "PLN_wpjfbnz8o2wjnpc",
        }),
      });
      const transaction = await response.json();
