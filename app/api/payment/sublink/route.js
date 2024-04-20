@@ -1,10 +1,13 @@
 import { getCurrentUser } from "@/app/utils/actions/get-current-user"
+import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 
 export const POST = async(req)=>{
     try {
         const currrentUser = await getCurrentUser();
         const body = await req.json();
+        const auth = headers().get("authorization");
+
 
 
         if(!currrentUser){
@@ -14,7 +17,7 @@ export const POST = async(req)=>{
         const resp = await fetch(`https://api.paystack.co/subscription?email=${body.email}`, {
           method: 'GET',
           headers: {
-            Authorization: `Bearer ${process.env.PAYSTACK_SECRET}`,
+            Authorization: auth,
             'Content-Type': 'application/json',
           },
         });
@@ -24,7 +27,7 @@ export const POST = async(req)=>{
 
             method: 'GET',
             headers: {
-              Authorization: `Bearer ${process.env.PAYSTACK_SECRET}`,
+              Authorization: auth,
               'Content-Type': 'application/json'
             },
            

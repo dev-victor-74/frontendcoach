@@ -18,7 +18,11 @@ const PricingPage = () => {
   const onClick=async()=>{
      setLoading(true);
     try {
-       const transaction = await axios.post("/api/payment/initialise"
+       const transaction = await axios.post("/api/payment/initialise",{
+         headers:{
+             Authorization :`Bearer ${process.env.NEXT_PUBLIC_PAYSTACK_SECRET}`
+         }
+       }
        );
      
       if(transaction?.data?.data?.authorization_url){

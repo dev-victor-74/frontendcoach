@@ -1,6 +1,7 @@
 import { getCurrentUser } from "@/app/utils/actions/get-current-user";
 import axios from "axios";
 import { NextResponse } from "next/server"
+import { headers } from "next/headers";
 
 
 
@@ -9,6 +10,7 @@ export const POST=async(req)=>{
     try {
         const currrentUser = await getCurrentUser();
         const planCode = process.env.PLAN_CODE
+        const auth = headers().get("authorization");
 
 
         if(!currrentUser){
@@ -16,7 +18,7 @@ export const POST=async(req)=>{
         }
        const res = await axios.get(`https://api.paystack.co/subscription?email=${currrentUser?.email}`, {
           headers: {
-            Authorization: `Bearer ${process.env.PAYSTACK_SECRET}`,
+            Authorization: auth,
             'Content-Type': 'application/json',
           },
         });
@@ -29,7 +31,7 @@ export const POST=async(req)=>{
         const response = await axios.get('https://api.paystack.co/transaction/initialize', {
             headers: {
               'Content-Type': 'application/json',
-              Authorization: `Bearer ${process.env.PAYSTACK_SECRET}`
+              Authorization: auth
             },
             body: JSON.stringify({
               email:currrentUser?.email,
