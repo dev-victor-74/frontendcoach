@@ -11,7 +11,6 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useSession } from "next-auth/react";
 import { format } from "date-fns";
-import axios from "axios";
 
 const ProBox = ({credit}) => {
 
@@ -23,26 +22,58 @@ const ProBox = ({credit}) => {
 
     const nextPaymentDate = date ? format(new Date(date && date),"PP") : null
 
-    const subLink=async()=>{
-         setLoading(true);
+    const subLink=async(code)=>{
           try {
-          const response = await axios.post("/api/payment/sublink", {email});
-        
-          if(response?.data?.data.link){
-            window.location.href = response?.data?.data?.link
+            const res = await fetch(`https://api.paystack.co/subscription/${code}/manage/link`, {
+            method:'GET',
+            headers: {
+              Authorization:`Bearer ${process.env.NEXT_PUBLIC_PAYSTACK_SECRET}`,
+              'Content-Type': 'application/json'
+            },
+           
+          });
+          const response = await res.json()
+          if(response?.data.link){
+            window.location.href = response?.data?.link
           }
           } catch (error) {
             toast.error("something went wrong, please try again");
-          }finally{
-            setLoading(false)
           }
          
     }
 
+    const getUserSubcription=async()=>{
+      setLoading(true);
+       try {
+        const response = await fetch(`https://api.paystack.co/subscription?email=${email}`, {
+          method:'GET',
+          headers: {
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_PAYSTACK_SECRET}`,
+            'Content-Type': 'application/json',
+          },
+        });
+        const data = await response.json();
+        if(data){
+           await subLink(data?.data[0]?.subscription_code)
+        }
+       } catch (error) {
+        
+       }finally{
+        setLoading(false)
+      }
+    }
+
     const getUserSub=async()=>{
       try {
-        const data = await axios.post("/api/payment/usersub",{email})
-        setDate(data?.data?.data[0]?.next_payment_date);
+        const response = await fetch(`https://api.paystack.co/subscription?email=${email}`, {
+          method:'GET',
+          headers: {
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_PAYSTACK_SECRET}`,
+            'Content-Type': 'application/json',
+          },
+        });
+         const data = await response.json();
+        setDate(data?.data[0]?.next_payment_date);
       } catch (error) {
         
       }
@@ -105,7 +136,7 @@ const ProBox = ({credit}) => {
                 <UpgradeBtn/>
                :
                credit?.plan === UserPlan.Pro?
-               <button onClick={subLink} className="rounded-md ring-2 w-max px-3 py-1 ring-purple-800 bg-blue-950 text-zinc-200 text-sm font-semibold">
+               <button onClick={getUserSubcription} className="rounded-md ring-2 w-max px-3 py-1 ring-purple-800 bg-blue-950 text-zinc-200 text-sm font-semibold">
                {loading?
                 <MdDataSaverOff size={18} color="silver" className="animate-spin"/>:
                 "Manage Subscription"

@@ -1,6 +1,5 @@
 "use client"
 
-import axios from "axios"
 import { useSession } from "next-auth/react"
 import { useState } from "react"
 import toast from "react-hot-toast"
@@ -15,25 +14,50 @@ const PricingPage = () => {
  const email = session?.data?.user?.email
 
 
+const getUserSub=async()=>{
+   
+  const response = await fetch(`https://api.paystack.co/subscription?email=${email}`,{
+    method:'GET',
+    headers:{
+      Authorization:`Bearer ${process.env.NEXT_PUBLIC_PAYSTACK_SECRET}`
+    }
+  })
+   const data = await response.json();
+
+   return data?.data[0]?.subscription_code;
+}
+
+
   const onClick=async()=>{
      setLoading(true);
     try {
-       const transaction = await axios.post("/api/payment/initialise",{
-         headers:{
-             Authorization :`Bearer ${process.env.NEXT_PUBLIC_PAYSTACK_SECRET}`
-         }
-       }
-       );
+      //  const sub_code = await getUserSub();
+      // if(sub_code){
+      //   return toast.error("You have already subscribed to this plan");
+      //   // 'https://api.paystack.co/transaction/initialize',
+      // }
+      const response = await fetch('api/payment/initialise', {
+        method:"POST",
+        headers: {
+         Authorization: `Bearer ${process.env.NEXT_PUBLIC_PAYSTACK_SECRET}`,
+         'Content-Type': 'application/json'
+       },
+       body: JSON.stringify({
+         email:email,
+        //  amount:350000,
+        //  channels:["card"],
+        //  callback_url:"https://frontendcoach-j9es.vercel.app/dashboard",
+        //  plan: "PLN_wpjfbnz8o2wjnpc",
+       }),
+     });
+     const transaction = await response.json();
      
-      if(transaction?.data?.data?.authorization_url){
+      if(transaction?.data?.authorization_url){
 
-        window.location.href = transaction?.data?.data?.authorization_url
+        window.location.href = transaction?.data?.authorization_url
       }
     } catch (error) {
-      console.log(error)
-      if(error?.response?.status === 403){
-         return toast.error("You have already subscribed to this plan");
-      }
+      
       return toast.error("couldn't process request, check your internet connection and try again")
     }finally{
       setLoading(false);
