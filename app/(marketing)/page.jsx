@@ -11,7 +11,7 @@ const HomePage = async() => {
     const currentUser = await getCurrentUser();
 
     if(currentUser){
-      // return redirect("/dashboard");
+      return redirect("/dashboard");
     }
   return (
     <div className='h-full flex flex-col'>
