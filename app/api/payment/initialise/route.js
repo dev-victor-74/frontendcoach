@@ -1,4 +1,5 @@
 import { getCurrentUser } from "@/app/utils/actions/get-current-user";
+import axios from "axios";
 import { NextResponse } from "next/server"
 
 
@@ -13,21 +14,19 @@ export const POST=async(req)=>{
         if(!currrentUser){
             return new NextResponse("unauthenticated",{status:401});
         }
-       const res = await fetch(`https://api.paystack.co/subscription?email=${currrentUser?.email}`, {
-          method: 'GET',
+       const res = await axios.get(`https://api.paystack.co/subscription?email=${currrentUser?.email}`, {
           headers: {
             Authorization: `Bearer ${process.env.PAYSTACK_SECRET}`,
             'Content-Type': 'application/json',
           },
         });
 
-        const resd = await res.json();
+        const resd = res.data;
         if(resd?.data[0]?.subscription_code){
              return new NextResponse("already subscribed to this plan",{status:403})
           }
 
-        const response = await fetch('https://api.paystack.co/transaction/initialize', {
-            method: 'POST',
+        const response = await axios.get('https://api.paystack.co/transaction/initialize', {
             headers: {
               'Content-Type': 'application/json',
               Authorization: `Bearer ${process.env.PAYSTACK_SECRET}`
@@ -40,11 +39,12 @@ export const POST=async(req)=>{
               plan: planCode,
             }),
           });
-          const data = await response.json();
+          const data = response.data
 
         return NextResponse.json(data);
         
     } catch (error) {
+      console.log(error)
         return new NextResponse(JSON.stringify(error),{status:500})
     }
 }
