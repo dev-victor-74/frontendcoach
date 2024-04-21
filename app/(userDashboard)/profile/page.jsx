@@ -29,7 +29,7 @@ const Profile = async() => {
            <UserLinks profile={currentUser?.profile} currentUser={currentUser} />
       </div>
       <Bio currentUser = {currentUser}/>
-      <ProBox plan = {currentUser?.plan}/>
+      <ProBox credit={currentUser?.Userapilimit}/>
     </div>
   )
 }
