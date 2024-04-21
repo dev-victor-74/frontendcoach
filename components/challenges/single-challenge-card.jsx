@@ -7,7 +7,6 @@ import { IoExpand } from "react-icons/io5";
 
 
 import clsx from 'clsx'
-import { MdCopyAll } from 'react-icons/md'
 import { useRouter } from 'next/navigation';
 import Loading from '../status/loading';
 

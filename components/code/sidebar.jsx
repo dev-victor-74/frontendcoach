@@ -52,11 +52,11 @@ const CodeSidebar = () => {
                </Link>
             </div>
             <div className="flex flex-col justify-center items-center gap-3 mt-4">
-                <SideBarLinks
+                {/* <SideBarLinks
                     icon={<MdPhoto size={24} color='#b383f2'/>}
                     onClick={()=>onOpen("images")}
                     label="Photo"
-                />
+                /> */}
                 <SideBarLinks
                     icon={<IoColorFill size={24} color='blue'/>}
                     onClick={()=>onOpen("colors")}
