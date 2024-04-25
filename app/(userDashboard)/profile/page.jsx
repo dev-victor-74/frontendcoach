@@ -1,5 +1,4 @@
-import { LuCopy } from "react-icons/lu";
-import { BsTwitterX } from "react-icons/bs";
+
 import Bio from '@/components/bio';
 import ProBox from '@/components/pro-box';
 import ProfileItems from '@/components/profile-items';

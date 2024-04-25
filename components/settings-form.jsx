@@ -11,6 +11,7 @@ import axios from 'axios';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import { MdArrowBack, MdDataSaverOff } from 'react-icons/md';
+import toast from 'react-hot-toast';
 
 
 const SettingsForm = ({currentUser}) => {
@@ -27,31 +28,45 @@ const SettingsForm = ({currentUser}) => {
    const [file, setFile] = useState(null);
    const [url, setUrl] = useState(null);
    const [loading, setLoading] = useState(false);
+   const [urlLoading, seturlLoading] = useState(false);
 
 
    const handleFileUpload = async (fil) => {
-     if(!fil) return null;
-
-     const name = new Date().getTime() + fil.name;
-     const storage = getStorage(app);
-     const storageRef = ref(storage, `images/${name}`);
-   
-     await uploadBytes(storageRef, fil);
-     const ur = await getDownloadURL(storageRef);
-     setUrl(ur);
+        if(!fil) return null;
+        seturlLoading(true);
+     try {
+          const name = new Date().getTime() + fil.name;
+          const storage = getStorage(app);
+          const storageRef = ref(storage, `images/${name}`);
+          
+          await uploadBytes(storageRef, fil);
+          const ur = await getDownloadURL(storageRef);
+          setUrl(ur);
+          
+     } catch (error) {
+         toast.error("failed to upload file"); 
+     }finally{
+          seturlLoading(false);
+     }
    };
 
    const onSubmit=async()=>{
         try {
           setLoading(true);
-          if(!url) return;
-          const userProfile = await axios.patch(`/api/users/update/${profile?.id}`,{level, username,bio,twitter,linkedin, url});
-          console.log(userProfile);
+
+          await axios.patch(`/api/users/update/${profile?.id}`,
+          {level, 
+           userName:username,
+           profileDesc:bio,
+           twitterLink:twitter,
+           LinkedinLink:linkedin,
+           profileurl:url
+          });
      } catch (error) {
-        console.log(error);  
+        toast.error("could not update profile");
      }finally{
-          setUrl(null);
           router.refresh();
+          toast.success("updated!")
           setLoading(false);
      }
    }
@@ -68,6 +83,7 @@ const SettingsForm = ({currentUser}) => {
           setLevel(currentUser?.profile?.level)
           setTwitter(currentUser?.profile?.twitterLink)
           setLinkedin(currentUser?.profile?.LinkedinLink)
+          setUrl(currentUser?.profile?.profileurl? currentUser?.profile?.profileurl:currentUser?.image)
      }
    },[currentUser]);
 
@@ -89,34 +105,26 @@ const SettingsForm = ({currentUser}) => {
        <MdArrowBack color='black' size={20} className='absolute cursor-pointer' onClick={handleRoute}/>
         <div className="w-full flex flex-col items-center justify-center gap-3">
             <h1 className='text-xl font-bold'>Profile Information</h1>
-            <div className="w-full mx-auto px-2 py-1 flex gap-8 ">
+            <div className="w-full mx-auto px-2 py-1 flex relative">
                 <div className="relative ml-8">
-                <Image
-                  height={100}
-                  width={200}
-                  alt='profile'
-                  priority
-                  src={
-                     (!currentUser?.profile?.profileurl)? currentUser?.image : currentUser?.profile?.profileurl
-                  }
-                  className='rounded-full w-[80px] h-[80px] border object-cover'
-               />
-               <label htmlFor="profile" className='absolute bottom-2 right-1'>
-                    <FaCamera className="w-6 h-6 text-gray-800 cursor-pointer"/>
-               </label>
-               <input type="file" onChange={e=>setFile(e.target.files[0])} id='profile' accept='image/*' className='hidden' />
-            </div> 
-             {url && <div className="w-20 h-20 bg-slate-500 rounded-full">
                     <Image
-                         height={100}
-                         width={200}
-                         alt='profile'
-                         priority
-                         src={url}
-                         className='rounded-full w-[80px] h-[80px] border object-cover'
-                     />
-             </div>}
-            </div>
+                    height={100}
+                    width={200}
+                    alt='profile'
+                    priority
+                    src={ url}
+                    className='rounded-full w-[80px] h-[80px] border object-cover'
+                    />
+                    <label htmlFor="profile" className='absolute bottom-2 right-1'>
+                         <FaCamera className="w-6 h-6 text-gray-800 cursor-pointer"/>
+                    </label>
+                    <input type="file" onChange={e=>setFile(e.target.files[0])} id='profile' accept='image/*' className='hidden' />
+                </div> 
+                    {urlLoading &&
+                         <MdDataSaverOff color='green' size={18} className='absolute mx-auto top-8 left-32 animate-spin duration-500'/> 
+                    }
+
+           </div>
             <div className="w-full md:w-[80%] rounded-sm flex flex-col gap-1">
                  <span className='font-semibold text-sm'>Username</span>
                  <input value={username} placeholder='' onChange={e=>setUsername(e.target.value)} type="text" className='outline-none ring-1 w-full ring-gray-800 focus:ring-blue-600 px-2 py-2 rounded-sm' />

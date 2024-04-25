@@ -6,7 +6,6 @@ import useModalStore from "@/lib/modal-store";
 import { Transition,Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
 
-import useSWR from "swr";
 import axios from "axios";
 
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
@@ -14,12 +13,12 @@ import { app } from "@/app/utils/firebase";
 
 import { MdCancel } from "react-icons/md";
 import { ImSpinner3 } from "react-icons/im";
+import toast from "react-hot-toast";
 
 
 const ImagesModal
 
  = () => {
-
 
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState(null);
@@ -40,7 +39,6 @@ const ImagesModal
    const imageUrl = await getDownloadURL(storageRef);
    return imageUrl;
  };
-//  console.log(cat)
 
  const prepareUpload= async()=>{
   try {
@@ -48,33 +46,31 @@ const ImagesModal
     if(!file) return null;
     const a =  await handleFileUpload(file);
     setUrl(a)
-    console.log(url)
+    toast.success("file uploaded")
     
   } catch (error) {
-    console.log(error)
+    toast.error("file not uploaded")
   }finally{
     setLoading(false);
-    setFile(null);
   }
  }
- const fetcher=async(address)=>{
-    await axios.get(address)
- }
 
- const{data, isLoading} = useSWR("",fetcher)
 
 const onSubmit=async()=>{
   try {
     setLoading(true);
     
-   const res = await axios.post("/api/assets", {url,name})
-   console.log(res)
+   await axios.post("/api/assets", {url,name})
+   toast.success("created");
   } catch (error) {
    
-    console.log(error)
-    
+    toast.error("not uploaded")
   }
-  finally{ setLoading(false)}
+  finally{ 
+    setLoading(false);
+    setFile(null);
+    setName("");
+  }
 }
 
 

@@ -19,17 +19,17 @@ const ImageList = () => {
     }
    }
 
-   const{data, isLoading} = useSWR("/api/assests", fetcher)
+   const{data, isLoading} = useSWR("/api/assets", fetcher)
 
   return (
-    <div className='w-full h-full'>
+    <div className='w-full h-full overscroll-auto'>
        
                {
                  isLoading ?
                  <Loading/>
                  :
-                 data?.data?
-                  <ImageCard data={data?.data}/>
+                 data?
+                  <ImageCard data={data}/>
                : null
               }        
     </div>

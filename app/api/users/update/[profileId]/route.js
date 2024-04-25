@@ -24,17 +24,11 @@ export const PATCH=async(req, {params})=>{
                 userId:currentUser?.id,
             },
             data:{
-                level:body.level,
-                profileurl:body.url,
-                userName:body.username,
-                profileDesc:body.bio,
-                twitterLink:body.twitter,
-                LinkedinLink:body.linkedin
+               ...body 
             }
         });
         return NextResponse.json(userProfile, {status:200})
     } catch (error) {
-        //  console.log(error)
          return new NextResponse(JSON.stringify(error),{status:500});
     }
 }

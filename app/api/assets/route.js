@@ -9,9 +9,9 @@ export const POST = async(req)=>{
      const currentUser = await getCurrentUser();
 
      if(!currentUser) return new NextResponse("unauthorised",{status:401});
-    //  if(currentUser?.role === UserRole.GUEST){
-    //     return new NextResponse("unauthorised",{status:403});
-    //  }
+     if(currentUser?.role === UserRole.GUEST){
+        return new NextResponse("unauthorised",{status:403});
+     }
     if(!body.url || !body.name) return new NextResponse("fields missing" ,{status:404});
 
      const assets =  await prismaDb.imageAssets.create(
@@ -31,8 +31,7 @@ export const POST = async(req)=>{
 
 export const GET =async(req)=>{
    try {
-      const images = await prismaDb.imageAssets.findMany({
-      });
+      const images = await prismaDb.imageAssets.findMany();
       return NextResponse.json(images);
 
    } catch (error) {

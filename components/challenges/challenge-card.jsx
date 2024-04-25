@@ -11,7 +11,6 @@ const ChallengeCard = ({item,currentUser}) => {
 
   const{onOpen} = useModalStore();
 
-  console.log(item)
   const skillColor={
     html:"bg-orange-800",
     css :"bg-blue-900",

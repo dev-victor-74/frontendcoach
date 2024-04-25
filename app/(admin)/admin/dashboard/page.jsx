@@ -15,7 +15,6 @@ import Images from "@/components/admin/add-image";
 const DashBoardPage = async() => {
   
   const currentUser = await getCurrentUser()
-  console.log(currentUser)
 
   if(!currentUser){
     return redirect("/");
