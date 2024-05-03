@@ -29,7 +29,7 @@ export const POST = async(req)=>{
         });
        if(savedProject){
            await increaseSolvers(body.challengeId)
-           await deleteSavedChallenges(id)
+           await deleteSavedChallenges(id,currentUser.id)
            await increasePoint(body.points)
            await decreaseCredit(body.points)
         }

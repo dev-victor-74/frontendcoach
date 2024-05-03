@@ -1,13 +1,11 @@
 import prismaDb from "../db"
-import { getCurrentUser } from "./get-current-user"
 
-export const deleteSavedChallenges =async(id)=>{
-    const currentUser = await getCurrentUser();
+export const deleteSavedChallenges =async(id,userId)=>{
     try {
         await prismaDb.savedChallenge.deleteMany({
             where:{
                 id,
-                userId:currentUser.id
+                userId
             }
         })
         return null
