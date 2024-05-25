@@ -44,7 +44,7 @@ const mobileLinks=[
   },
   {
     label:"Submissions",
-    path:"/submission"
+    path:"/submissions"
   },
   
   {

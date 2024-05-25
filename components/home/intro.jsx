@@ -31,21 +31,21 @@ const Intro = () => {
         <div className="w-[95%] md:w-[70%] mt-2">
             <h1
             className="text-center text-3xl md:text-5xl font-bold text-zinc-200"
-            >Boost your coding skill by building real life challenges</h1>
+            >Boost your coding skills by building real life challenges</h1>
          </div>
          <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-6">
              {
                 madeFor.map(m=>(
-                    <div key={m?.id} className="bg-[#18143d] rounded-md ring-2 ring-purple-800 flex flex-col px-3 py-2 pb-4 gap-3">
-                        {/* <div className="w-full h-[220px] relative">
+                    <div key={m?.id} className="bg-[#18143d] rounded-md ring-2 ring-purple-800 flex flex-col items-center justify-center px-3 py-2 pb-4 gap-3 ">
+                        <div className="w-[150px] ring-2 ring-purple-800 overflow-hidden mx-auto rounded-full h-[120px] relative">
                            <Image
                              src={m.imgSrc}
                              fill
                              priority
-                             sizes="200px 220px"
+                             sizes="200px 220px rounded-full object-contain"
                              alt={m.label}
                            />
-                        </div> */}
+                        </div>
                         <h2 className="text-2xl font-bold text-center mt-1 text-zinc-300">{m?.label}</h2>
                         <div className="w-full">
                             <p className="text-sm font-medium text-gray-400 text-center">{m?.description}</p>
